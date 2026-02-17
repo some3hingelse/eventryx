@@ -14,26 +14,27 @@ import (
 )
 
 type EnvConfiguration struct {
-	Environment           string   `def:"debug" desc:"Environment level" enums:"debug,dev,prod"`
-	Host                  string   `def:"localhost:8000" desc:"Host for api server"`
-	Port                  string   `def:"8000" desc:"Port for api server"`
-	SentryEndpoint        string   `desc:"Sentry endpoint for stacktrace's'"`
-	DbUsername            string   `isReq:"true" desc:"Postgres username"`
-	DbHost                string   `isReq:"true" desc:"Postgres host"`
-	DbPort                string   `isReq:"true" desc:"Postgres port"`
-	DbPassword            string   `isReq:"true" desc:"Postgres password"`
-	DbName                string   `isReq:"true" desc:"Name of Postgres database"`
-	DirMigrations         string   `def:"migrations" desc:"Path to migrations directory"`
-	RedisHost             string   `isReq:"true" desc:"Redis host"`
-	RedisDb               int      `isReq:"true" desc:"Redis DB number"`
-	RedisUser             string   `isReq:"true" desc:"Redis username"`
-	RedisPassword         string   `isReq:"true" desc:"Redis password"`
-	AccessTokenLifespan   int      `isReq:"true" desc:"Lifespan of Access-token (in hours)"`
-	RefreshTokenLifespan  int      `isReq:"true" desc:"Lifespan of Refresh-token (in hours)"`
-	TokenSecret           string   `isReq:"true" desc:"Secret salt of JWT-generation"`
-	RootAdminId           int      `isReq:"true" desc:"Id of root admin in Postgres"`
-	KafkaBootstrapServers []string `def:"localhost:9092" desc:"Kafka bootstrap servers"`
-	KafkaTopic            string   `def:"eventryx_raw_messages" desc:"Kafka topic"`
+	Environment             string   `def:"debug" desc:"Environment level" enums:"debug,dev,prod"`
+	Host                    string   `def:"localhost:8000" desc:"Host for api server"`
+	Port                    string   `def:"8000" desc:"Port for api server"`
+	SentryEndpoint          string   `desc:"Sentry endpoint for stacktrace's'"`
+	DbUsername              string   `isReq:"true" desc:"Postgres username"`
+	DbHost                  string   `isReq:"true" desc:"Postgres host"`
+	DbPort                  string   `isReq:"true" desc:"Postgres port"`
+	DbPassword              string   `isReq:"true" desc:"Postgres password"`
+	DbName                  string   `isReq:"true" desc:"Name of Postgres database"`
+	DirMigrations           string   `def:"migrations" desc:"Path to migrations directory"`
+	RedisHost               string   `isReq:"true" desc:"Redis host"`
+	RedisDb                 int      `isReq:"true" desc:"Redis DB number"`
+	RedisUser               string   `isReq:"true" desc:"Redis username"`
+	RedisPassword           string   `isReq:"true" desc:"Redis password"`
+	AccessTokenLifespan     int      `isReq:"true" desc:"Lifespan of Access-token (in hours)"`
+	RefreshTokenLifespan    int      `isReq:"true" desc:"Lifespan of Refresh-token (in hours)"`
+	TokenSecret             string   `isReq:"true" desc:"Secret salt of JWT-generation"`
+	RootAdminId             int      `isReq:"true" desc:"Id of root admin in Postgres"`
+	KafkaBootstrapServers   []string `def:"localhost:9092" desc:"Kafka bootstrap servers"`
+	KafkaTopic              string   `def:"eventryx_raw_messages" desc:"Kafka topic"`
+	ServiceTokenValueLength int      `def:"32" desc:"Length of service token value"`
 }
 
 var Config EnvConfiguration

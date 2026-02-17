@@ -17,8 +17,8 @@ import (
 // @Tags         Services
 // @Security	 User
 // @Produce      json
-// @Param        request                body                                                    map[string]interface{}                             true    "request"
-// @Param        id		                path                                                    int                             true    "request"
+// @Param        request                body                                                    map[string]interface{}          true    "request"
+// @Param        id		                path                                                    int                             true    "service id"
 // @Success      200                    {object}                                                map[string]interface{}
 // @Failure      500                    {object}                                                map[string]interface{}
 // @Router       /api/v1/services/{id}/data [post]

@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"time"
+
 	"eventryx.api_service/internal/database/models"
 	"eventryx.api_service/internal/utils"
 	"github.com/gofiber/fiber/v2"
@@ -43,6 +45,29 @@ func RegisterService(c *fiber.Ctx) error {
 	service.OwnerId = c.Locals("user").(models.User).Id
 
 	if err := service.Create(); err != nil {
+		return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{"message": "Technical troubles, please try again later"})
+	}
+
+	return c.JSON(service)
+}
+
+// CreateServiceToken
+// @Summary      Create service token
+// @Description  Method for service token creating
+// @Tags         Services
+// @Security	 User
+// @Produce      json
+// @Param		 expires_at				formData												time.Time					    false	"expires at"
+// @Param        id		                path                                                    int                             true    "service id"
+// @Success      200                    {object}                                                map[string]interface{}
+// @Failure      500                    {object}                                                map[string]interface{}
+// @Router       /api/v1/services/{id}/tokens [post]
+func CreateServiceToken(c *fiber.Ctx) error {
+	expiresAt, _ := time.Parse("2006-01-02T15:04:05Z", c.FormValue("expires_at"))
+
+	service := models.ServiceToken{ExpiresAt: &expiresAt}
+	err := service.Create()
+	if err != nil {
 		return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{"message": "Technical troubles, please try again later"})
 	}
 

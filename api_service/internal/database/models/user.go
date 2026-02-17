@@ -38,8 +38,8 @@ func (user *User) Get() bool {
 	return database.Connection.Where(user).First(user).RowsAffected > 0
 }
 
-func (user *User) Exists() bool {
+func (user *User) ExistsWithName() bool {
 	var count int64
-	database.Connection.Model(User{}).Where(user).Count(&count)
+	database.Connection.Model(User{}).Where("name = ?", user.Name).Count(&count)
 	return count > 0
 }

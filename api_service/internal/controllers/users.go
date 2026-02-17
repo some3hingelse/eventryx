@@ -112,13 +112,10 @@ func AddUser(c *fiber.Ctx) error {
 		})
 	}
 
-	user := models.User{Name: &request.Username}
-	if user.Exists() {
+	user := models.User{Name: &request.Username, Password: &request.Password, Role: models.IsUser}
+	if user.ExistsWithName() {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "User with this name already exists"})
 	}
-
-	user.Password = &request.Password
-	user.Role = models.IsUser
 
 	if err := user.Create(); err != nil {
 		return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{"message": "Technical troubles, please try again later"})

@@ -1,7 +1,9 @@
 package utils
 
 import (
+	"crypto/rand"
 	"errors"
+	"math/big"
 	"reflect"
 
 	"github.com/go-playground/validator/v10"
@@ -57,4 +59,17 @@ func defaultValidationMessage(e validator.FieldError) string {
 	default:
 		return "Invalid value"
 	}
+}
+
+func GenerateRandomString(length int) string {
+	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	result := make([]byte, length)
+	charsetLen := big.NewInt(int64(len(charset)))
+
+	for i := range result {
+		n, _ := rand.Int(rand.Reader, charsetLen)
+		result[i] = charset[n.Int64()]
+	}
+
+	return string(result)
 }
