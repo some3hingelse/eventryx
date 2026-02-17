@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"strconv"
 	"time"
 
 	"eventryx.api_service/internal/database/models"
@@ -65,11 +66,21 @@ func RegisterService(c *fiber.Ctx) error {
 func CreateServiceToken(c *fiber.Ctx) error {
 	expiresAt, _ := time.Parse("2006-01-02T15:04:05Z", c.FormValue("expires_at"))
 
-	service := models.ServiceToken{ExpiresAt: &expiresAt}
-	err := service.Create()
+	serviceId, _ := strconv.Atoi(c.Params("id"))
+	service := models.Service{Id: &serviceId}
+	if !service.Exists() {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"message": "Service does not exist"})
+	}
+
+	serviceToken := models.ServiceToken{ServiceId: &serviceId}
+	if !expiresAt.IsZero() {
+		serviceToken.ExpiresAt = &expiresAt
+	}
+	
+	err := serviceToken.Create()
 	if err != nil {
 		return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{"message": "Technical troubles, please try again later"})
 	}
 
-	return c.JSON(service)
+	return c.JSON(serviceToken)
 }

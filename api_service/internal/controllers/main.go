@@ -3,7 +3,6 @@ package controllers
 import (
 	"context"
 	"encoding/json"
-	"strconv"
 	"time"
 
 	"eventryx.api_service/internal/database/models"
@@ -18,16 +17,11 @@ import (
 // @Security	 User
 // @Produce      json
 // @Param        request                body                                                    map[string]interface{}          true    "request"
-// @Param        id		                path                                                    int                             true    "service id"
 // @Success      200                    {object}                                                map[string]interface{}
 // @Failure      500                    {object}                                                map[string]interface{}
-// @Router       /api/v1/services/{id}/data [post]
+// @Router       /api/v1/services/data [post]
 func SendData(c *fiber.Ctx) error {
-	serviceId, _ := strconv.Atoi(c.Params("id"))
-	service := models.Service{Id: &serviceId}
-	if !service.Exists() {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Service does not exist"})
-	}
+	service := c.Locals("service").(models.Service)
 
 	var requestData map[string]interface{}
 	err := json.Unmarshal(c.Body(), &requestData)

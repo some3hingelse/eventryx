@@ -80,40 +80,6 @@ paths:
       summary: Register service
       tags:
       - Services
-  /api/v1/services/{id}/data:
-    post:
-      description: Method for send data to event ingest service
-      parameters:
-      - description: request
-        in: body
-        name: request
-        required: true
-        schema:
-          additionalProperties: true
-          type: object
-      - description: service id
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      security:
-      - User: []
-      summary: Send data to event ingest service
-      tags:
-      - Services
   /api/v1/services/{id}/tokens:
     post:
       description: Method for service token creating
@@ -139,6 +105,35 @@ paths:
       security:
       - User: []
       summary: Create service token
+      tags:
+      - Services
+  /api/v1/services/data:
+    post:
+      description: Method for send data to event ingest service
+      parameters:
+      - description: request
+        in: body
+        name: request
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - User: []
+      summary: Send data to event ingest service
       tags:
       - Services
   /api/v1/users:
