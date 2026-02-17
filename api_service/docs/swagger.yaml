@@ -91,7 +91,7 @@ paths:
         schema:
           additionalProperties: true
           type: object
-      - description: request
+      - description: service id
         in: path
         name: id
         required: true
@@ -112,6 +112,33 @@ paths:
       security:
       - User: []
       summary: Send data to event ingest service
+      tags:
+      - Services
+  /api/v1/services/{id}/tokens:
+    post:
+      description: Method for service token creating
+      parameters:
+      - description: service id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - User: []
+      summary: Create service token
       tags:
       - Services
   /api/v1/users:
