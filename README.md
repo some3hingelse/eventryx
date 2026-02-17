@@ -9,23 +9,33 @@
 Текущие планы:
 
 API Service - отвечает за аутентификацию и приём сообщений, подписан на Redis Sub, держит сокет для отправки клиентам уведомлений, полученных из Redis Sub
+
    Kafka topic raw_messages
+
      ↓
 
 Event Ingest Service - шаблонизирует пришедшее сообщение, убирая regex'ом IP's, UUID's, ID's, Email's, Phone's, числа и прочее, отвечает за регистрацию шаблонизированного сообщения в БД 
+
    Kafka topic preprocessed_messages
+
      ↓
 
 Processor Service -  отсеивает некоторые сообщения на основе частоты регистрации одинаковых fingerprint за последнее время, для прошедших отсеивание сообщений выполняет токенизацию, дополнительно группируя сообщенияв отдельной БД по схожести токенизированного значения с уже имеющимися  
+
    Kafka topic processed_messages
+
      ↓
 
 AI_Analyzer_Service - отвечает за получение описания полученного сообщения от ИИ через OpenAI-совместимое API (например модель, поднятая на LM Studio) - получает summary, severity, type и т.д.
+
    Kafka topic analyzed_messages
+
      ↓
 
 Notifications Service - отправляет уведомления в Redis Pub
+
    Redis Pub
+
      ↓
 
 API Service - получает уведомление и отправляет его в сокет
