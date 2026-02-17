@@ -102,7 +102,7 @@ const docTemplate = `{
             "post": {
                 "security": [
                     {
-                        "User": []
+                        "Service": []
                     }
                 ],
                 "description": "Method for send data to event ingest service",
@@ -292,6 +292,12 @@ const docTemplate = `{
     },
     "securityDefinitions": {
         "Admin": {
+            "description": "description",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        },
+        "Service": {
             "description": "description",
             "type": "apiKey",
             "name": "Authorization",

@@ -14,7 +14,7 @@ import (
 // @Summary      Send data to event ingest service
 // @Description  Method for send data to event ingest service
 // @Tags         Services
-// @Security	 User
+// @Security	 Service
 // @Produce      json
 // @Param        request                body                                                    map[string]interface{}          true    "request"
 // @Success      200                    {object}                                                map[string]interface{}
