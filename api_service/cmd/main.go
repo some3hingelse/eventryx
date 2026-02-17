@@ -34,6 +34,11 @@ func init() {
 // @name Authorization
 // @description description
 
+// @securityDefinitions.apikey Service
+// @in header
+// @name Authorization
+// @description description
+
 // @securityDefinitions.apikey Admin
 // @in header
 // @name Authorization

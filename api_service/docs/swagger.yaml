@@ -132,7 +132,7 @@ paths:
             additionalProperties: true
             type: object
       security:
-      - User: []
+      - Service: []
       summary: Send data to event ingest service
       tags:
       - Services
@@ -185,6 +185,11 @@ paths:
       - HealthChecks
 securityDefinitions:
   Admin:
+    description: description
+    in: header
+    name: Authorization
+    type: apiKey
+  Service:
     description: description
     in: header
     name: Authorization
