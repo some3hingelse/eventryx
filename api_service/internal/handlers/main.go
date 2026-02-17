@@ -17,6 +17,6 @@ func RegisterRoutes(app *fiber.App) {
 	servicesApi := api.Group("services")
 
 	servicesApi.Post("", middleware.UserAuthMiddleware(models.IsUser), controllers.RegisterService)
+	servicesApi.Post("data", middleware.ServiceAuthMiddleware, controllers.SendData)
 	servicesApi.Post(":id/tokens", middleware.UserAuthMiddleware(models.IsUser), controllers.CreateServiceToken)
-	servicesApi.Post(":id/data", middleware.ServiceAuthMiddleware, controllers.SendData)
 }

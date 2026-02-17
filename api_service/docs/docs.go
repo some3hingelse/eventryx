@@ -98,7 +98,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/services/{id}/data": {
+        "/api/v1/services/data": {
             "post": {
                 "security": [
                     {
@@ -123,13 +123,6 @@ const docTemplate = `{
                             "type": "object",
                             "additionalProperties": true
                         }
-                    },
-                    {
-                        "type": "integer",
-                        "description": "service id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
                     }
                 ],
                 "responses": {

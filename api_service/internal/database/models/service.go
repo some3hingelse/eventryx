@@ -37,6 +37,10 @@ type ServiceToken struct {
 	ExpiresAt *time.Time `json:"expires_at"`
 }
 
+func (serviceToken *ServiceToken) TableName() string {
+	return "services_tokens"
+}
+
 func (serviceToken *ServiceToken) Create() error {
 	for {
 		tokenValue := utils.GenerateRandomString(config.Config.ServiceTokenValueLength)
