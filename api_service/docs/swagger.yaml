@@ -1,0 +1,175 @@
+definitions:
+  controllers.registerServiceRequest:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  controllers.userAuthInfo:
+    properties:
+      password:
+        maxLength: 64
+        minLength: 12
+        type: string
+      username:
+        maxLength: 32
+        minLength: 3
+        type: string
+    required:
+    - password
+    - username
+    type: object
+info:
+  contact: {}
+  description: API for Eventryx.
+  title: Eventryx API
+  version: "1.0"
+paths:
+  /api/v1/auth:
+    post:
+      description: Method for login
+      parameters:
+      - description: request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.userAuthInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login
+      tags:
+      - Auth
+  /api/v1/services:
+    post:
+      description: Method for service registration
+      parameters:
+      - description: request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.registerServiceRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - User: []
+      summary: Register service
+      tags:
+      - Services
+  /api/v1/services/{id}/data:
+    post:
+      description: Method for send data to event ingest service
+      parameters:
+      - description: request
+        in: body
+        name: request
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      - description: request
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - User: []
+      summary: Send data to event ingest service
+      tags:
+      - Services
+  /api/v1/users:
+    post:
+      description: Method for adding user
+      parameters:
+      - description: request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.userAuthInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - User: []
+      summary: Add user
+      tags:
+      - Admin
+  /liveness:
+    get:
+      description: Liveness probe
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Liveness probe
+      tags:
+      - HealthChecks
+securityDefinitions:
+  Admin:
+    description: description
+    in: header
+    name: Authorization
+    type: apiKey
+  User:
+    description: description
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
